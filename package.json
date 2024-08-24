@@ -1,0 +1,12 @@
+{
+  "name": "mock-chrome",
+  "version": "0.0.1",
+  "description": "Another mock library for Chrome Extensions API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Shin'ya Ueoka",
+  "license": "MIT"
+}
