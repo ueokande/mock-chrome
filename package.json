@@ -2,11 +2,21 @@
   "name": "mock-chrome",
   "version": "0.0.1",
   "description": "Another mock library for Chrome Extensions API",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "build:watch": "ncc build --watch src/index.ts",
+    "lint": "biome ci .",
+    "lint:fix": "biome check --write",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "Shin'ya Ueoka",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
 }
