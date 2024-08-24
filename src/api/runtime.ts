@@ -129,3 +129,5 @@ export class TodoRuntime implements Interface {
   onUserScriptConnect: chrome.runtime.ExtensionConnectEvent = new TodoEvent();
   onUserScriptMessage: chrome.runtime.ExtensionMessageEvent = new TodoEvent();
 }
+
+export class MockRuntime extends TodoRuntime {}

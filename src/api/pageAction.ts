@@ -40,3 +40,5 @@ export class TodoPageAction implements Interface {
 
   onClicked: chrome.pageAction.PageActionClickedEvent = new TodoEvent();
 }
+
+export class MockPageAction extends TodoPageAction {}

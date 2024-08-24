@@ -104,3 +104,5 @@ export class TodoAction implements Interface {
 
   onClicked: chrome.action.BrowserClickedEvent = new TodoEvent();
 }
+
+export class MockAction extends TodoAction {}

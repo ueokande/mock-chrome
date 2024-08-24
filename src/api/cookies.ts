@@ -35,3 +35,5 @@ export class TodoCookies implements Interface {
 
   onChanged: chrome.cookies.CookieChangedEvent = new TodoEvent();
 }
+
+export class MockCookies extends TodoCookies {}

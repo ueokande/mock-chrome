@@ -42,3 +42,5 @@ export class TodoAlarms implements Interface {
 
   onAlarm: chrome.alarms.AlarmEvent = new TodoEvent();
 }
+
+export class MockAlarms extends TodoAlarms {}

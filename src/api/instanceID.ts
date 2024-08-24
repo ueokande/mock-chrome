@@ -35,3 +35,5 @@ export class TodoInstanceID implements Interface {
 
   onTokenRefresh: chrome.instanceID.TokenRefreshEvent = new TodoEvent();
 }
+
+export class MockInstanceID extends TodoInstanceID {}

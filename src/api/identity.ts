@@ -52,3 +52,5 @@ export class TodoIdentity implements Interface {
 
   onSignInChanged: chrome.identity.SignInChangeEvent = new TodoEvent();
 }
+
+export class MockIdentity extends TodoIdentity {}

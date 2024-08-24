@@ -30,3 +30,5 @@ export class TodoPermissions implements Interface {
   onRemoved: chrome.permissions.PermissionsRemovedEvent = new TodoEvent();
   onAdded: chrome.permissions.PermissionsAddedEvent = new TodoEvent();
 }
+
+export class MockPermissions extends TodoPermissions {}

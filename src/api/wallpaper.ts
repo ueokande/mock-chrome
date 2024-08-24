@@ -6,3 +6,5 @@ export class TodoWallpaper implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockWallpaper extends TodoWallpaper {}

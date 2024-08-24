@@ -26,3 +26,5 @@ export class TodoDevtoolsInspectedWindow implements Interface {
   onResourceAdded: chrome.devtools.inspectedWindow.ResourceAddedEvent = new TodoEvent();
   onResourceContentCommitted: chrome.devtools.inspectedWindow.ResourceContentCommittedEvent = new TodoEvent();
 }
+
+export class MockDevtoolsInspectedWindow extends TodoDevtoolsInspectedWindow {}

@@ -129,3 +129,5 @@ export class TodoDeclarativeNetRequest implements Interface {
 
   onRuleMatchedDebug: chrome.declarativeNetRequest.RuleMatchedDebugEvent = new TodoEvent();
 }
+
+export class MockDeclarativeNetRequest extends TodoDeclarativeNetRequest {}

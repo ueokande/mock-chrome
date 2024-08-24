@@ -19,3 +19,5 @@ export class TodoDeclarativeContent implements Interface {
 
   public onPageChanged: chrome.declarativeContent.PageChangedEvent = new TodoEvent();
 }
+
+export class MockDeclarativeContent extends TodoDeclarativeContent {}

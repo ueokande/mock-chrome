@@ -27,3 +27,5 @@ export class TodoContextMenus implements Interface {
 
   onClicked: chrome.contextMenus.MenuClickedEvent = new TodoEvent();
 }
+
+export class MockContextMenus extends TodoContextMenus {}

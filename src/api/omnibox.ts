@@ -14,3 +14,5 @@ export class TodoOmnibox implements Interface {
   onInputCancelled: chrome.omnibox.OmniboxInputCancelledEvent = new TodoEvent();
   onDeleteSuggestion: chrome.omnibox.OmniboxSuggestionDeletedEvent = new TodoEvent();
 }
+
+export class MockOmnibox extends TodoOmnibox {}

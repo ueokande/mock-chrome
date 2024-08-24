@@ -100,3 +100,5 @@ export class TodoInputIme implements Interface {
   onSurroundingTextChanged: chrome.input.ime.SurroundingTextChangedEvent = new TodoEvent();
   onReset: chrome.input.ime.InputResetEvent = new TodoEvent();
 }
+
+export class MockInputIme extends TodoInputIme {}

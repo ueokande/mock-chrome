@@ -76,3 +76,5 @@ export class TodoStorage implements Interface {
 
   onChanged: chrome.storage.StorageChangedEvent = new TodoEvent();
 }
+
+export class MockStorage extends TodoStorage {}

@@ -7,3 +7,5 @@ export class TodoTopSites implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockTopSites extends TodoTopSites {}

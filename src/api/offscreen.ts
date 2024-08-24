@@ -32,3 +32,5 @@ export class TodoOffscreen implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockOffscreen extends TodoOffscreen {}

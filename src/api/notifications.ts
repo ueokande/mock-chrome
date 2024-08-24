@@ -35,3 +35,5 @@ export class TodoNotifications implements Interface {
   onPermissionLevelChanged: chrome.notifications.NotificationPermissionLevelChangedEvent = new TodoEvent();
   onShowSettings: chrome.notifications.NotificationShowSettingsEvent = new TodoEvent();
 }
+
+export class MockNotifications extends TodoNotifications {}

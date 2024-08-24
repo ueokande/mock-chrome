@@ -7,3 +7,5 @@ export class TodoPageCapture implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockPageCapture extends TodoPageCapture {}

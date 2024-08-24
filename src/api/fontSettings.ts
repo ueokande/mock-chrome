@@ -91,3 +91,5 @@ export class TodoFontSettings implements Interface {
   onMinimumFontSizeChanged: chrome.fontSettings.MinimumFontSizeChangedEvent = new TodoEvent();
   onFontChanged: chrome.fontSettings.FontChangedEvent = new TodoEvent();
 }
+
+export class MockFontSettings extends TodoFontSettings {}

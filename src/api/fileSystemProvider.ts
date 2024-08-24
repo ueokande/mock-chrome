@@ -49,3 +49,5 @@ export class TodoFileSystemProvider implements Interface {
   onGetActionsRequested: chrome.fileSystemProvider.GetActionsRequested = new TodoEvent();
   onExecuteActionRequested: chrome.fileSystemProvider.ExecuteActionRequested = new TodoEvent();
 }
+
+export class MockFileSystemProvider extends TodoFileSystemProvider {}

@@ -7,3 +7,5 @@ export class TodoSearch implements Interfae {
     throw new Error("not implemented");
   }
 }
+
+export class MockSearch extends TodoSearch {}

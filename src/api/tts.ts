@@ -33,3 +33,5 @@ export class TodoTts implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockTts extends TodoTts {}

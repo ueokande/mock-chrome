@@ -24,3 +24,5 @@ export class TodoGcm implements Interface {
   onMessagesDeleted: chrome.gcm.MessageDeletionEvent = new TodoEvent();
   onSendError: chrome.gcm.GcmErrorEvent = new TodoEvent();
 }
+
+export class MockGcm extends TodoGcm {}

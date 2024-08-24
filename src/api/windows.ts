@@ -63,3 +63,5 @@ export class TodoWindows implements Interface {
   onFocusChanged: chrome.windows.WindowIdEvent = new TodoEvent();
   onBoundsChanged: chrome.windows.WindowReferenceEvent = new TodoEvent();
 }
+
+export class MockWindows extends TodoWindows {}

@@ -8,3 +8,5 @@ export class TodoPrinterProvider implements Interface {
   onGetCapabilityRequested: chrome.printerProvider.CapabilityRequestedEvent = new TodoEvent();
   onPrintRequested: chrome.printerProvider.PrintRequestedEvent = new TodoEvent();
 }
+
+export class MockPrinterProvider extends TodoPrinterProvider {}

@@ -20,3 +20,5 @@ export class TodoTabCapture implements Interface {
 
   onStatusChanged: chrome.tabCapture.CaptureStatusChangedEvent = new TodoEvent();
 }
+
+export class MockTabCapture extends TodoTabCapture {}

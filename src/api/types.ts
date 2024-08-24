@@ -18,3 +18,5 @@ export class TodoChromeSetting implements chrome.types.ChromeSetting {
 
   public onChange: chrome.types.ChromeSettingChangedEvent = new TodoEvent();
 }
+
+export class MockChromeSetting extends TodoChromeSetting {}

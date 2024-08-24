@@ -84,3 +84,5 @@ export class TodoBookmarks implements Interfae {
   onCreated: chrome.bookmarks.BookmarkCreatedEvent = new TodoEvent();
   onChildrenReordered: chrome.bookmarks.BookmarkChildrenReordered = new TodoEvent();
 }
+
+export class MockBookmarks extends TodoBookmarks {}

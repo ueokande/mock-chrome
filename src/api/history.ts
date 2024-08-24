@@ -42,3 +42,5 @@ export class TodoHistory implements Interface {
   onVisited: chrome.history.HistoryVisitedEvent = new TodoEvent();
   onVisitRemoved: chrome.history.HistoryVisitRemovedEvent = new TodoEvent();
 }
+
+export class MockHistory extends TodoHistory {}

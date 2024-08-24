@@ -12,3 +12,5 @@ export class TodoDesktopCapture implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockDesktopCapture extends TodoDesktopCapture {}

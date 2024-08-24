@@ -6,3 +6,5 @@ export class TodoEnterpriseNetworkingAttributes implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockEnterpriseNetworkingAttributes extends TodoEnterpriseNetworkingAttributes {}

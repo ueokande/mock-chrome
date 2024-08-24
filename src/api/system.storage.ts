@@ -24,3 +24,5 @@ export class TodoSystemStorage implements Interface {
   onAttached: chrome.system.storage.SystemStorageAttachedEvent = new TodoEvent();
   onDetached: chrome.system.storage.SystemStorageDetachedEvent = new TodoEvent();
 }
+
+export class MockSystemStorage extends TodoSystemStorage {}

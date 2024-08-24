@@ -7,3 +7,5 @@ export class TodoSystemCpu implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockSystemCpu extends TodoSystemCpu {}

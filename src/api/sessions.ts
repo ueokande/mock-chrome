@@ -28,3 +28,5 @@ export class TodoSessions implements Interface {
 
   onChanged: chrome.sessions.SessionChangedEvent = new TodoEvent();
 }
+
+export class MockSessions extends TodoSessions {}

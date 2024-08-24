@@ -25,3 +25,5 @@ export class TodoWebNavigation implements Interface {
   onDOMContentLoaded: chrome.webNavigation.WebNavigationFramedEvent = new TodoEvent();
   onErrorOccurred: chrome.webNavigation.WebNavigationFramedErrorEvent = new TodoEvent();
 }
+
+export class MockWebNavigation extends TodoWebNavigation {}

@@ -45,3 +45,5 @@ export class TodoScripting implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockScripting extends TodoScripting {}

@@ -30,3 +30,5 @@ export class TodoDebugger implements Interface {
   onDetach: chrome.debugger.DebuggerDetachedEvent = new TodoEvent();
   onEvent: chrome.debugger.DebuggerEventEvent = new TodoEvent();
 }
+
+export class MockDebugger extends TodoDebugger {}

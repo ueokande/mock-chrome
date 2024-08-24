@@ -15,3 +15,5 @@ export class TodoLoginState implements Interface {
 
   onSessionStateChanged: chrome.loginState.SessionStateChangedEvent = new TodoEvent();
 }
+
+export class MockLoginState extends TodoLoginState {}

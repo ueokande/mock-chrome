@@ -8,3 +8,5 @@ export class TodoTtsEngine implements Interface {
   onPause: chrome.events.Event<() => void> = new TodoEvent();
   onResume: chrome.events.Event<() => void> = new TodoEvent();
 }
+
+export class MockTtsEngine extends TodoTtsEngine {}

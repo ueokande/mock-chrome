@@ -10,3 +10,5 @@ export class TodoFileBrowserHandler implements Interface {
 
   onExecute: chrome.fileBrowserHandler.FileBrowserHandlerExecuteEvent = new TodoEvent();
 }
+
+export class MockFileBrowserHandler extends TodoFileBrowserHandler {}

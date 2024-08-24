@@ -6,3 +6,5 @@ export class TodoDocumentScan implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockDocumentScan extends TodoDocumentScan {}

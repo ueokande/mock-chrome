@@ -11,3 +11,5 @@ export class TodoDevtoolsNetwork implements Interface {
   onRequestFinished: chrome.devtools.network.RequestFinishedEvent = new TodoEvent();
   onNavigated: chrome.devtools.network.NavigatedEvent = new TodoEvent();
 }
+
+export class MockDevtoolsNetwork extends TodoDevtoolsNetwork {}

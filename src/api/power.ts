@@ -11,3 +11,5 @@ export class TodoPower implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockPower extends TodoPower {}

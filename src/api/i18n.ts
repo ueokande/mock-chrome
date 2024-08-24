@@ -23,3 +23,5 @@ export class TodoI18n implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockI18n extends TodoI18n {}

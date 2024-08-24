@@ -94,3 +94,5 @@ export class TodoDownloads implements Interface {
   onErased: chrome.downloads.DownloadErasedEvent = new TodoEvent();
   onDeterminingFilename: chrome.downloads.DownloadDeterminingFilenameEvent = new TodoEvent();
 }
+
+export class MockDownloads extends TodoDownloads {}

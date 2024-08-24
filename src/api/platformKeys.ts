@@ -26,3 +26,5 @@ export class TodoPlatformKeys implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockPlatformKeys extends TodoPlatformKeys {}

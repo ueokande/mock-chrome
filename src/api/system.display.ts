@@ -95,3 +95,5 @@ export class TodoSystemDisplay implements Interface {
 
   onDisplayChanged: chrome.events.Event<() => void> = new TodoEvent();
 }
+
+export class MockSystemDisplay extends TodoSystemDisplay {}

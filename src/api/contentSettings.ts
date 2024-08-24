@@ -193,3 +193,5 @@ export class TodoContentSettings {
   unsandboxedPlugins = new PpapiBrokerContentSetting();
   automaticDownloads = new MultipleAutomaticDownloadsContentSetting();
 }
+
+export class MockContentSettings extends TodoContentSettings {}

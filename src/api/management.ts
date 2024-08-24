@@ -86,3 +86,5 @@ export class TodoManagement implements Interface {
   onInstalled: chrome.management.ManagementInstalledEvent = new TodoEvent();
   onEnabled: chrome.management.ManagementEnabledEvent = new TodoEvent();
 }
+
+export class MockManagement extends TodoManagement {}

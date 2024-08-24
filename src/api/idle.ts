@@ -22,3 +22,5 @@ export class TodoIdle implements Interface {
 
   onStateChanged: chrome.idle.IdleStateChangedEvent = new TodoEvent();
 }
+
+export class MockIdle extends TodoIdle {}

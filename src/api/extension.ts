@@ -56,3 +56,5 @@ export class TodoExtension implements Interface {
   onRequest: chrome.extension.OnRequestEvent = new TodoEvent();
   onRequestExternal: chrome.extension.OnRequestEvent = new TodoEvent();
 }
+
+export class MockExtension extends TodoExtension {}

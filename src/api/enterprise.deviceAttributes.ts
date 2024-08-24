@@ -26,3 +26,5 @@ export class TodoEnterpriseDeviceAttributes implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockEnterpriseDeviceAttributes extends TodoEnterpriseDeviceAttributes {}

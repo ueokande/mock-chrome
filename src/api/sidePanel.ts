@@ -31,3 +31,5 @@ export class TodoSidePanel implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockSidePanel extends TodoSidePanel {}

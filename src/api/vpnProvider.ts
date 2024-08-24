@@ -34,3 +34,5 @@ export class TodoVpnProvider implements Interface {
   onConfigCreated: chrome.vpnProvider.VpnConfigCreationEvent = new TodoEvent();
   onUIEvent: chrome.vpnProvider.VpnUiEvent = new TodoEvent();
 }
+
+export class MockVpnProvider extends TodoVpnProvider {}

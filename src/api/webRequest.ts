@@ -20,3 +20,5 @@ export class TodoWebRequest implements Interface {
   onCompleted: chrome.webRequest.WebResponseCacheEvent = new TodoEvent();
   onErrorOccurred: chrome.webRequest.WebResponseErrorEvent = new TodoEvent();
 }
+
+export class MockWebRequest extends TodoWebRequest {}

@@ -6,3 +6,5 @@ export class TodoDom implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockDom extends TodoDom {}

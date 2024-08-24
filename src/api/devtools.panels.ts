@@ -29,3 +29,5 @@ export class TodoDevtoolsPanels implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockDevtoolsPanels extends TodoDevtoolsPanels {}

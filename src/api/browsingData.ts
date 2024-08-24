@@ -97,3 +97,5 @@ export class TodoBrowsingData implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockBrowsingData extends TodoBrowsingData {}

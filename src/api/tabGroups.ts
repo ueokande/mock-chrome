@@ -34,3 +34,5 @@ export class TodoTabGroups implements Interface {
   onRemoved: chrome.tabGroups.TabGroupRemovedEvent = new TodoEvent();
   onUpdated: chrome.tabGroups.TabGroupUpdated = new TodoEvent();
 }
+
+export class MockTabGroups extends TodoTabGroups {}

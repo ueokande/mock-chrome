@@ -11,3 +11,5 @@ export class TodoCommands implements Interface {
 
   onCommand: chrome.commands.CommandEvent = new TodoEvent();
 }
+
+export class MockCommands extends TodoCommands {}

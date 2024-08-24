@@ -31,3 +31,5 @@ export class TodoUserScripts implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockUserScripts extends TodoUserScripts {}

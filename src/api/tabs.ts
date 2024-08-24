@@ -227,3 +227,5 @@ export class TodoTabs implements Interface {
 
   TAB_ID_NONE: typeof chrome.tabs.TAB_ID_NONE = -1;
 }
+
+export class MockTabs extends TodoTabs {}

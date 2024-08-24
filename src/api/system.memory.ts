@@ -7,3 +7,5 @@ export class TodoSystemMemory implements Interface {
     throw new Error("not implemented");
   }
 }
+
+export class MockSystemMemory extends TodoSystemMemory {}
