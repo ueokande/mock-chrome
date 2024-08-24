@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoContextMenus {
+type Interface = typeof chrome.contextMenus;
+
+export class TodoContextMenus implements Interface {
   ACTION_MENU_TOP_LEVEL_LIMIT = 6;
 
   removeAll(callback?: () => void): void;

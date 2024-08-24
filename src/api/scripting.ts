@@ -1,4 +1,6 @@
-export class TodoScripting {
+type Interface = typeof chrome.scripting;
+
+export class TodoScripting implements Interface {
   executeScript<Args extends any[], Result>(injection: chrome.scripting.ScriptInjection<Args, Result>): Promise<chrome.scripting.InjectionResult<Awaited<Result>>[]>;
   executeScript<Args extends any[], Result>(injection: chrome.scripting.ScriptInjection<Args, Result>, callback: (results: chrome.scripting.InjectionResult<Awaited<Result>>[]) => void): void;
   executeScript(): never {

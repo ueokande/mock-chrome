@@ -1,4 +1,6 @@
-export class TodoPlatformKeys {
+type Interface = typeof chrome.platformKeys;
+
+export class TodoPlatformKeys implements Interface {
   selectClientCertificates(details: chrome.platformKeys.ClientCertificateSelectDetails, callback: (matches: chrome.platformKeys.Match[]) => void): void;
   selectClientCertificates(): never {
     throw new Error("not implemented");

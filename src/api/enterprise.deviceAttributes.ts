@@ -1,4 +1,6 @@
-export class TodoEnterpriseDeviceAttributes {
+type Interface = typeof chrome.enterprise.deviceAttributes;
+
+export class TodoEnterpriseDeviceAttributes implements Interface {
   getDirectoryDeviceId(callback: (deviceId: string) => void): void;
   getDirectoryDeviceId(): never {
     throw new Error("not implemented");

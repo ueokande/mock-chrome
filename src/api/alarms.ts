@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoAlarms {
+type Interface = typeof chrome.alarms;
+
+export class TodoAlarms implements Interface {
   create(alarmInfo: chrome.alarms.AlarmCreateInfo): Promise<void>;
   create(name: string, alarmInfo: chrome.alarms.AlarmCreateInfo): Promise<void>;
   create(alarmInfo: chrome.alarms.AlarmCreateInfo, callback: () => void): void;

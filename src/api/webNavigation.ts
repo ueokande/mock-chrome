@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoWebNavigation {
+type Interface = typeof chrome.webNavigation;
+
+export class TodoWebNavigation implements Interface {
   getFrame(details: chrome.webNavigation.GetFrameDetails, callback: (details: chrome.webNavigation.GetFrameResultDetails | null) => void): void;
   getFrame(details: chrome.webNavigation.GetFrameDetails): Promise<chrome.webNavigation.GetFrameResultDetails | null>;
   getFrame(): never {

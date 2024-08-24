@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoFileSystemProvider {
+type Interface = typeof chrome.fileSystemProvider;
+
+export class TodoFileSystemProvider implements Interface {
   mount(options: chrome.fileSystemProvider.MountOptions, callback?: () => void): void;
   mount(): never {
     throw new Error("not implemented");
@@ -32,7 +34,7 @@ export class TodoFileSystemProvider {
   onOpenFileRequested: chrome.fileSystemProvider.OpenFileRequestedEvent = new TodoEvent();
   onCloseFileRequested: chrome.fileSystemProvider.OpenedFileRequestedEvent = new TodoEvent();
   onReadFileRequested: chrome.fileSystemProvider.OpenedFileOffsetRequestedEvent = new TodoEvent();
-  onCreateDirectoryRequested: chrome.fileSystemProvider.DirectoryPathRecursiveRequestedEvent = new TodoEvent();
+  onCreateDirectoryRequested: chrome.fileSystemProvider.CreateDirectoryRequestedEvent = new TodoEvent();
   onDeleteEntryRequested: chrome.fileSystemProvider.EntryPathRecursiveRequestedEvent = new TodoEvent();
   onCreateFileRequested: chrome.fileSystemProvider.FilePathRequestedEvent = new TodoEvent();
   onCopyEntryRequested: chrome.fileSystemProvider.SourceTargetPathRequestedEvent = new TodoEvent();

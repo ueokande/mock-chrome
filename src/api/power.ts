@@ -1,4 +1,6 @@
-export class TodoPower {
+type Interface = typeof chrome.power;
+
+export class TodoPower implements Interface {
   requestKeepAwake(level: string): void;
   requestKeepAwake(): never {
     throw new Error("not implemented");

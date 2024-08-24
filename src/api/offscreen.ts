@@ -1,4 +1,6 @@
-export class TodoOffscreen {
+type Interface = typeof chrome.offscreen;
+
+export class TodoOffscreen implements Interface {
   Reason: typeof chrome.offscreen.Reason = {
     TESTING: "TESTING",
     AUDIO_PLAYBACK: "AUDIO_PLAYBACK",

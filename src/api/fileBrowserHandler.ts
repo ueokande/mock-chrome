@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoFileBrowserHandler {
+type Interface = typeof chrome.fileBrowserHandler;
+
+export class TodoFileBrowserHandler implements Interface {
   selectFile(selectionParams: chrome.fileBrowserHandler.SelectionParams, callback: (result: chrome.fileBrowserHandler.SelectionResult) => void): void;
   selectFile(): never {
     throw new Error("not implemented");

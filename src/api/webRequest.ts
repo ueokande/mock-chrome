@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoWebRequest {
+type Interface = typeof chrome.webRequest;
+
+export class TodoWebRequest implements Interface {
   MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES = 20;
 
   handlerBehaviorChanged(callback?: Function): void;

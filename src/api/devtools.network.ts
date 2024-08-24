@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoDevtoolsNetwork {
+type Interface = typeof chrome.devtools.network;
+
+export class TodoDevtoolsNetwork implements Interface {
   getHAR(callback: (harLog: chrome.devtools.network.HARLog) => void): void;
   getHAR(): never {
     throw new Error("not implemented");

@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoPageAction {
+type Interface = typeof chrome.pageAction;
+
+export class TodoPageAction implements Interface {
   hide(tabId: number, callback?: () => void): void;
   hide(): never {
     throw new Error("not implemented");

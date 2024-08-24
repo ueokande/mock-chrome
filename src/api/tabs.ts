@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoTabs {
+type Interface = typeof chrome.tabs;
+
+export class TodoTabs implements Interface {
   executeScript(details: chrome.tabs.InjectDetails): Promise<any[]>;
   executeScript(details: chrome.tabs.InjectDetails, callback?: (result: any[]) => void): void;
   executeScript(tabId: number, details: chrome.tabs.InjectDetails): Promise<any[]>;

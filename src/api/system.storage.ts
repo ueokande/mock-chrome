@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoSystemStorage {
+type Interface = typeof chrome.system.storage;
+
+export class TodoSystemStorage implements Interface {
   getInfo(callback: (info: chrome.system.storage.StorageUnitInfo[]) => void): void;
   getInfo(): Promise<chrome.system.storage.StorageUnitInfo[]>;
   getInfo(): never {

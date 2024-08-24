@@ -1,7 +1,17 @@
-export class TodoDevtoolsPanels {
-  elements: chrome.devtools.panels.ElementsPanel;
-  sources: chrome.devtools.panels.SourcesPanel;
-  themeName: "default" | "dark";
+type Interface = typeof chrome.devtools.panels;
+
+export class TodoDevtoolsPanels implements Interface {
+  get elements(): chrome.devtools.panels.ElementsPanel {
+    throw new Error("not implemented");
+  }
+
+  get sources(): chrome.devtools.panels.SourcesPanel {
+    throw new Error("not implemented");
+  }
+
+  get themeName(): "default" | "dark" {
+    throw new Error("not implemented");
+  }
 
   create(title: string, iconPath: string, pagePath: string, callback?: (panel: chrome.devtools.panels.ExtensionPanel) => void): void;
   create(): never {

@@ -1,8 +1,14 @@
 import { TodoEvent } from "./events";
 
-export class TodoExtension {
-  inIncognitoContext: boolean;
-  lastError: chrome.extension.LastError;
+type Interface = typeof chrome.extension;
+
+export class TodoExtension implements Interface {
+  get inIncognitoContext(): boolean {
+    throw new Error("not implemented");
+  }
+  get lastError(): chrome.extension.LastError {
+    throw new Error("not implemented");
+  }
 
   getBackgroundPage(): Window | null;
   getBackgroundPage(): never {

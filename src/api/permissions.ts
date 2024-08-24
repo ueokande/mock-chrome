@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoPermissions {
+type Interface = typeof chrome.permissions;
+
+export class TodoPermissions implements Interface {
   contains(permissions: chrome.permissions.Permissions): Promise<boolean>;
   contains(permissions: chrome.permissions.Permissions, callback: (result: boolean) => void): void;
   contains(): never {

@@ -1,4 +1,6 @@
-export class TodoTts {
+type Interface = typeof chrome.tts;
+
+export class TodoTts implements Interface {
   isSpeaking(callback?: (speaking: boolean) => void): void;
   isSpeaking(): never {
     throw new Error("not implemented");

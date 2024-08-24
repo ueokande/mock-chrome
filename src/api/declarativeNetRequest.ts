@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoDeclarativeNetRequest {
+type Interface = typeof chrome.declarativeNetRequest;
+
+export class TodoDeclarativeNetRequest implements Interface {
   DYNAMIC_RULESET_ID = "_dynamic";
   GETMATCHEDRULES_QUOTA_INTERVAL = 10;
   GUARANTEED_MINIMUM_STATIC_RULES = 30000;
@@ -116,6 +118,12 @@ export class TodoDeclarativeNetRequest {
   updateSessionRules(options: chrome.declarativeNetRequest.UpdateRuleOptions, callback: Function): void;
   updateSessionRules(options: chrome.declarativeNetRequest.UpdateRuleOptions): Promise<void>;
   updateSessionRules(): never {
+    throw new Error("not implemented");
+  }
+
+  updateStaticRules(options: chrome.declarativeNetRequest.UpdateStaticRulesOptions): Promise<void>;
+  updateStaticRules(options: chrome.declarativeNetRequest.UpdateStaticRulesOptions, callback?: () => void): void;
+  updateStaticRules(): never {
     throw new Error("not implemented");
   }
 

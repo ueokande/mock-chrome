@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoAction {
+type Interface = typeof chrome.action;
+
+export class TodoAction implements Interface {
   disable(tabId?: number): Promise<void>;
   disable(callback: () => void): void;
   disable(tabId: number, callback: () => void): void;

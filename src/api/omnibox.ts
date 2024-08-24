@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoOmnibox {
+type Interface = typeof chrome.omnibox;
+
+export class TodoOmnibox implements Interface {
   setDefaultSuggestion(suggestion: chrome.omnibox.Suggestion): void;
   setDefaultSuggestion(): never {
     throw new Error("not implemented");

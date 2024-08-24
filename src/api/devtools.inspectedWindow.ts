@@ -1,5 +1,11 @@
-export class TodoDevtoolsInspectedWindow {
-  tabId: number;
+import { TodoEvent } from "./events";
+
+type Interface = typeof chrome.devtools.inspectedWindow;
+
+export class TodoDevtoolsInspectedWindow implements Interface {
+  get tabId(): number {
+    throw new Error("not implemented");
+  }
 
   reload(reloadOptions?: chrome.devtools.inspectedWindow.ReloadOptions): void;
   reload(): never {
@@ -17,6 +23,6 @@ export class TodoDevtoolsInspectedWindow {
     throw new Error("not implemented");
   }
 
-  onResourceAdded: chrome.devtools.inspectedWindow.ResourceAddedEvent;
-  onResourceContentCommitted: chrome.devtools.inspectedWindow.ResourceContentCommittedEvent;
+  onResourceAdded: chrome.devtools.inspectedWindow.ResourceAddedEvent = new TodoEvent();
+  onResourceContentCommitted: chrome.devtools.inspectedWindow.ResourceContentCommittedEvent = new TodoEvent();
 }

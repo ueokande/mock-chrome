@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoCookies {
+type Interface = typeof chrome.cookies;
+
+export class TodoCookies implements Interface {
   getAllCookieStores(callback: (cookieStores: chrome.cookies.CookieStore[]) => void): void;
   getAllCookieStores(): Promise<chrome.cookies.CookieStore[]>;
   getAllCookieStores(): never {

@@ -1,8 +1,18 @@
 import { TodoEvent } from "./events";
 
-export class TodoRuntime {
+type Interface = typeof chrome.runtime;
+
+export class TodoRuntime implements Interface {
   lastError: chrome.runtime.LastError | undefined;
   id = "********************************";
+
+  ContextType: typeof chrome.runtime.ContextType = {
+    TAB: "TAB",
+    POPUP: "POPUP",
+    BACKGROUND: "BACKGROUND",
+    OFFSCREEN_DOCUMENT: "OFFSCREEN_DOCUMENT",
+    SIDE_PANEL: "SIDE_PANEL",
+  } as unknown as typeof chrome.runtime.ContextType;
 
   OnInstalledReason: typeof chrome.runtime.OnInstalledReason = {
     INSTALL: "install",
@@ -22,8 +32,15 @@ export class TodoRuntime {
     throw new Error("not implemented");
   }
 
+  getBackgroundPage(): Promise<Window>;
   getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
   getBackgroundPage(): never {
+    throw new Error("not implemented");
+  }
+
+  getContexts(filter: chrome.runtime.ContextFilter): Promise<chrome.runtime.ExtensionContext[]>;
+  getContexts(filter: chrome.runtime.ContextFilter, callback: (contexts: chrome.runtime.ExtensionContext[]) => void): void;
+  getContexts(): never {
     throw new Error("not implemented");
   }
 
@@ -53,6 +70,7 @@ export class TodoRuntime {
     throw new Error("not implemented");
   }
 
+  requestUpdateCheck(): Promise<chrome.runtime.RequestUpdateCheckResult>;
   requestUpdateCheck(callback: (status: chrome.runtime.RequestUpdateCheckStatus, details?: chrome.runtime.UpdateCheckDetails) => void): void;
   requestUpdateCheck(): never {
     throw new Error("not implemented");
@@ -91,6 +109,7 @@ export class TodoRuntime {
     throw new Error("not implemented");
   }
 
+  openOptionsPage(): Promise<void>;
   openOptionsPage(callback?: () => void): void;
   openOptionsPage(): never {
     throw new Error("not implemented");
@@ -107,4 +126,6 @@ export class TodoRuntime {
   onRestartRequired: chrome.runtime.RuntimeRestartRequiredEvent = new TodoEvent();
   onUpdateAvailable: chrome.runtime.RuntimeUpdateAvailableEvent = new TodoEvent();
   onBrowserUpdateAvailable: chrome.runtime.RuntimeEvent = new TodoEvent();
+  onUserScriptConnect: chrome.runtime.ExtensionConnectEvent = new TodoEvent();
+  onUserScriptMessage: chrome.runtime.ExtensionMessageEvent = new TodoEvent();
 }

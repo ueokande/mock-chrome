@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoLoginState {
+type Interface = typeof chrome.loginState;
+
+export class TodoLoginState implements Interface {
   getProfileType(callback: (profileType: chrome.loginState.ProfileType) => void): void;
   getProfileType(): never {
     throw new Error("not implemented");

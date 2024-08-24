@@ -1,6 +1,6 @@
 import { TodoEvent } from "./events";
 
-export class TodoStorageArea {
+export class TodoStorageArea implements chrome.storage.StorageArea {
   getBytesInUse(callback: (bytesInUse: number) => void): void;
   getBytesInUse(keys?: string | string[] | null): Promise<number>;
   getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
@@ -61,7 +61,9 @@ export class TodoSessionStorageArea extends TodoStorageArea {
   QUOTA_BYTES = 10485760;
 }
 
-export class TodoStorage {
+type Interface = typeof chrome.storage;
+
+export class TodoStorage implements Interface {
   AccessLevel: typeof chrome.storage.AccessLevel = {
     TRUSTED_AND_UNTRUSTED_CONTEXTS: "TRUSTED_AND_UNTRUSTED_CONTEXTS",
     TRUSTED_CONTEXTS: "TRUSTED_CONTEXTS",

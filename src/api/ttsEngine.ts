@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoTtsEngine {
+type Interface = typeof chrome.ttsEngine;
+
+export class TodoTtsEngine implements Interface {
   onSpeak: chrome.ttsEngine.TtsEngineSpeakEvent = new TodoEvent();
   onStop: chrome.events.Event<() => void> = new TodoEvent();
   onPause: chrome.events.Event<() => void> = new TodoEvent();

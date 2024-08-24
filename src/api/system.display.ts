@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoSystemDisplay {
+type Interface = typeof chrome.system.display;
+
+export class TodoSystemDisplay implements Interface {
   DisplayPosition: typeof chrome.system.display.DisplayPosition = {
     TOP: "top",
     RIGHT: "right",

@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoDownloads {
+type Interface = typeof chrome.downloads;
+
+export class TodoDownloads implements Interface {
   search(query: chrome.downloads.DownloadQuery): Promise<chrome.downloads.DownloadItem[]>;
   search(query: chrome.downloads.DownloadQuery, callback: (results: chrome.downloads.DownloadItem[]) => void): void;
   search(): never {

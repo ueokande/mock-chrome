@@ -1,4 +1,6 @@
-export class TodoBrowsingData {
+type Interface = typeof chrome.browsingData;
+
+export class TodoBrowsingData implements Interface {
   settings(): Promise<chrome.browsingData.SettingsResult>;
   settings(callback: (result: chrome.browsingData.SettingsResult) => void): void;
   settings(): never {

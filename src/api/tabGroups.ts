@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoTabGroups {
+type Interface = typeof chrome.tabGroups;
+
+export class TodoTabGroups implements Interface {
   TAB_GROUP_ID_NONE: typeof chrome.tabGroups.TAB_GROUP_ID_NONE = -1;
 
   get(groupId: number, callback: (group: chrome.tabGroups.TabGroup) => void): void;

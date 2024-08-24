@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoGcm {
+type Interface = typeof chrome.gcm;
+
+export class TodoGcm implements Interface {
   MAX_MESSAGE_SIZE = 4096;
 
   register(senderIds: string[], callback: (registrationId: string) => void): void;

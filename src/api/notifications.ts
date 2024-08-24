@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoNotifications {
+type Interface = typeof chrome.notifications;
+
+export class TodoNotifications implements Interface {
   create(notificationId: string, options: chrome.notifications.NotificationOptions<true>, callback?: (notificationId: string) => void): void;
   create(options: chrome.notifications.NotificationOptions<true>, callback?: (notificationId: string) => void): void;
   create(): never {

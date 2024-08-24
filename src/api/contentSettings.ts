@@ -1,4 +1,6 @@
-export class TodoContentSetting {
+type Interface = chrome.contentSettings.ContentSetting;
+
+export class TodoContentSetting implements Interface {
   clear(details: chrome.contentSettings.ClearDetails, callback?: () => void): void;
   clear(): never {
     throw new Error("not implemented");
@@ -19,6 +21,7 @@ export class TodoContentSetting {
     throw new Error("not implemented");
   }
 }
+
 export class CookieContentSetting extends TodoContentSetting {
   set(details: chrome.contentSettings.CookieSetDetails, callback?: () => void): void;
   set(): never {

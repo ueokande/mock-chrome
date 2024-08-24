@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoDebugger {
+type Interface = typeof chrome.debugger;
+
+export class TodoDebugger implements Interface {
   attach(target: chrome.debugger.Debuggee, requiredVersion: string): Promise<void>;
   attach(target: chrome.debugger.Debuggee, requiredVersion: string, callback: () => void): void;
   attach(): never {

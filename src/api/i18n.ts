@@ -1,4 +1,6 @@
-export class TodoI18n {
+type Interface = typeof chrome.i18n;
+
+export class TodoI18n implements Interface {
   getAcceptLanguages(): Promise<string[]>;
   getAcceptLanguages(callback: (languages: string[]) => void): void;
   getAcceptLanguages(): never {

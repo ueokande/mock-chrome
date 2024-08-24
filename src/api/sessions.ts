@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoSessions {
+type Interface = typeof chrome.sessions;
+
+export class TodoSessions implements Interface {
   MAX_SESSION_RESULTS = 25;
 
   getRecentlyClosed(filter?: chrome.sessions.Filter): Promise<chrome.sessions.Session[]>;

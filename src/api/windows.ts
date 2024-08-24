@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoWindows {
+type Interface = typeof chrome.windows;
+
+export class TodoWindows implements Interface {
   WINDOW_ID_CURRENT: typeof chrome.windows.WINDOW_ID_CURRENT = -2;
   WINDOW_ID_NONE: typeof chrome.windows.WINDOW_ID_NONE = -1;
 

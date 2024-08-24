@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoIdentity {
+type Interface = typeof chrome.identity;
+
+export class TodoIdentity implements Interface {
   AccountStatus: typeof chrome.identity.AccountStatus = {
     SYNC: "SYNC",
     ANY: "ANY",

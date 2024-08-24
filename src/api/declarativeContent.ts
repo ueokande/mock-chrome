@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoDeclarativeContent {
+type Interface = typeof chrome.declarativeContent;
+
+export class TodoDeclarativeContent implements Interface {
   public PageStateMatcherProperties = class TodoPageStateMatcherProperties {
     pageUrl?: chrome.declarativeContent.PageStateUrlDetails | undefined;
     css?: string[] | undefined;

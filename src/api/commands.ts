@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoCommands {
+type Interface = typeof chrome.commands;
+
+export class TodoCommands implements Interface {
   getAll(): Promise<chrome.commands.Command[]>;
   getAll(callback: (commands: chrome.commands.Command[]) => void): void;
   getAll(): never {

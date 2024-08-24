@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoBookmarks {
+type Interfae = typeof chrome.bookmarks;
+
+export class TodoBookmarks implements Interfae {
   MAX_WRITE_OPERATIONS_PER_HOUR = 1000000;
   MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE = 1000000;
 

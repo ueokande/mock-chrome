@@ -1,4 +1,6 @@
-export class TodoEnterprisePlatformKeys {
+type Interface = typeof chrome.enterprise.platformKeys;
+
+export class TodoEnterprisePlatformKeys implements Interface {
   getTokens(callback: (tokens: chrome.enterprise.platformKeys.Token[]) => void): void;
   getTokens(): never {
     throw new Error("not implemented");
@@ -16,6 +18,11 @@ export class TodoEnterprisePlatformKeys {
 
   removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
   removeCertificate(): never {
+    throw new Error("not implemented");
+  }
+
+  challengeKey(options: chrome.enterprise.platformKeys.ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
+  challengeKey(): never {
     throw new Error("not implemented");
   }
 

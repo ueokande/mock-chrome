@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoManagement {
+type Interface = typeof chrome.management;
+
+export class TodoManagement implements Interface {
   setEnabled(id: string, enabled: boolean): Promise<void>;
   setEnabled(id: string, enabled: boolean, callback: () => void): void;
   setEnabled(): never {

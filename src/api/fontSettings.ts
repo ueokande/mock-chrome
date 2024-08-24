@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoFontSettings {
+type Interface = typeof chrome.fontSettings;
+
+export class TodoFontSettings implements Interface {
   setDefaultFontSize(details: chrome.fontSettings.DefaultFontSizeDetails): Promise<void>;
   setDefaultFontSize(details: chrome.fontSettings.DefaultFontSizeDetails, callback: Function): void;
   setDefaultFontSize(): never {

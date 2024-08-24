@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoVpnProvider {
+type Interface = typeof chrome.vpnProvider;
+
+export class TodoVpnProvider implements Interface {
   createConfig(name: string, callback: (id: string) => void): void;
   createConfig(): never {
     throw new Error("not implemented");

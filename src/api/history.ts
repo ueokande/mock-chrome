@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoHistory {
+type Interface = typeof chrome.history;
+
+export class TodoHistory implements Interface {
   search(query: chrome.history.HistoryQuery): Promise<chrome.history.HistoryItem[]>;
   search(query: chrome.history.HistoryQuery, callback: (results: chrome.history.HistoryItem[]) => void): void;
   search(): never {

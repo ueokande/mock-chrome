@@ -1,4 +1,8 @@
-export class TodoTabCapture {
+import { TodoEvent } from "./events";
+
+type Interface = typeof chrome.tabCapture;
+
+export class TodoTabCapture implements Interface {
   capture(options: chrome.tabCapture.CaptureOptions, callback: (stream: MediaStream | null) => void): void;
   capture(): never {
     throw new Error("not implemented");
@@ -14,5 +18,5 @@ export class TodoTabCapture {
     throw new Error("not implemented");
   }
 
-  onStatusChanged: chrome.tabCapture.CaptureStatusChangedEvent;
+  onStatusChanged: chrome.tabCapture.CaptureStatusChangedEvent = new TodoEvent();
 }

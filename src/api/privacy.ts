@@ -29,7 +29,10 @@ export class TodoWebsites implements chrome.privacy.Websites {
   protectedContentEnabled: chrome.types.ChromeSetting = new TodoChromeSetting();
   doNotTrackEnabled: chrome.types.ChromeSetting = new TodoChromeSetting();
 }
-export class TodoPrivacy {
+
+type Interface = typeof chrome.privacy;
+
+export class TodoPrivacy implements Interface {
   services: chrome.privacy.Services = new TodoServices();
   network: chrome.privacy.Network = new TodoNetwork();
   websites: chrome.privacy.Websites = new TodoWebsites();

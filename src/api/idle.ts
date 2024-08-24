@@ -1,6 +1,9 @@
 import { TodoEvent } from "./events";
 
-export class TodoIdle {
+type Interface = typeof chrome.idle;
+
+export class TodoIdle implements Interface {
+  queryState(detectionIntervalInSeconds: number): Promise<chrome.idle.IdleState>;
   queryState(detectionIntervalInSeconds: number, callback: (newState: chrome.idle.IdleState) => void): void;
   queryState(): never {
     throw new Error("not implemented");
@@ -11,6 +14,7 @@ export class TodoIdle {
     throw new Error("not implemented");
   }
 
+  getAutoLockDelay(): Promise<number>;
   getAutoLockDelay(callback: (delay: number) => void): void;
   getAutoLockDelay(): never {
     throw new Error("not implemented");

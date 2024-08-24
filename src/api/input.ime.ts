@@ -1,6 +1,8 @@
 import { TodoEvent } from "./events";
 
-export class TodoInputIme {
+type Interface = typeof chrome.input.ime;
+
+export class TodoInputIme implements Interface {
   setMenuItems(parameters: chrome.input.ime.ImeParameters, callback?: () => void): void;
   setMenuItems(): never {
     throw new Error("not implemented");

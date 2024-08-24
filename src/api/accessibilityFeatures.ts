@@ -1,6 +1,8 @@
 import { TodoChromeSetting } from "./types";
 
-export class TodoAccessibilityFeatures {
+type Interface = typeof chrome.accessibilityFeatures;
+
+export class TodoAccessibilityFeatures implements Interface {
   spokenFeedback: chrome.types.ChromeSetting = new TodoChromeSetting();
   largeCursor: chrome.types.ChromeSetting = new TodoChromeSetting();
   stickyKeys: chrome.types.ChromeSetting = new TodoChromeSetting();
