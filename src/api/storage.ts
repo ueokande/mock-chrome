@@ -33,7 +33,9 @@ export class TodoStorageArea {
     throw new Error("not implemented");
   }
 
-  setAccessLevel(accessOptions: { accessLevel: chrome.storage.AccessLevel }): Promise<void>;
+  setAccessLevel(accessOptions: {
+    accessLevel: chrome.storage.AccessLevel;
+  }): Promise<void>;
   setAccessLevel(accessOptions: { accessLevel: chrome.storage.AccessLevel }, callback: () => void): void;
   setAccessLevel(): never {
     throw new Error("not implemented");
@@ -43,20 +45,20 @@ export class TodoStorageArea {
 }
 
 export class TodoLocalStorageArea extends TodoStorageArea {
-  QUOTA_BYTES: number = 10485760;
+  QUOTA_BYTES = 10485760;
 }
 
 export class TodoSyncStorageArea extends TodoStorageArea {
-  MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number = 1000000;
-  QUOTA_BYTES: number = 102400;
-  QUOTA_BYTES_PER_ITEM: number = 8192;
-  MAX_ITEMS: number = 512;
-  MAX_WRITE_OPERATIONS_PER_HOUR: number = 1800;
-  MAX_WRITE_OPERATIONS_PER_MINUTE: number = 120;
+  MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE = 1000000;
+  QUOTA_BYTES = 102400;
+  QUOTA_BYTES_PER_ITEM = 8192;
+  MAX_ITEMS = 512;
+  MAX_WRITE_OPERATIONS_PER_HOUR = 1800;
+  MAX_WRITE_OPERATIONS_PER_MINUTE = 120;
 }
 
 export class TodoSessionStorageArea extends TodoStorageArea {
-  QUOTA_BYTES: number = 10485760;
+  QUOTA_BYTES = 10485760;
 }
 
 export class TodoStorage {

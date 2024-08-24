@@ -1,7 +1,7 @@
 import { TodoEvent } from "./events";
 
 export class TodoSessions {
-  MAX_SESSION_RESULTS: number = 25;
+  MAX_SESSION_RESULTS = 25;
 
   getRecentlyClosed(filter?: chrome.sessions.Filter): Promise<chrome.sessions.Session[]>;
   getRecentlyClosed(filter: chrome.sessions.Filter, callback: (sessions: chrome.sessions.Session[]) => void): void;

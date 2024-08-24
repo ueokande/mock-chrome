@@ -1,7 +1,7 @@
 import { TodoEvent } from "./events";
 
 export class TodoContextMenus {
-  ACTION_MENU_TOP_LEVEL_LIMIT: number = 6;
+  ACTION_MENU_TOP_LEVEL_LIMIT = 6;
 
   removeAll(callback?: () => void): void;
   removeAll(): never {

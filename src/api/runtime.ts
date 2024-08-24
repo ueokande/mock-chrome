@@ -2,7 +2,7 @@ import { TodoEvent } from "./events";
 
 export class TodoRuntime {
   lastError: chrome.runtime.LastError | undefined;
-  id: string = "********************************";
+  id = "********************************";
 
   OnInstalledReason: typeof chrome.runtime.OnInstalledReason = {
     INSTALL: "install",

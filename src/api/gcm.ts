@@ -1,7 +1,7 @@
 import { TodoEvent } from "./events";
 
 export class TodoGcm {
-  MAX_MESSAGE_SIZE: number = 4096;
+  MAX_MESSAGE_SIZE = 4096;
 
   register(senderIds: string[], callback: (registrationId: string) => void): void;
   register(): never {

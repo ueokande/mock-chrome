@@ -1,8 +1,8 @@
 import { TodoEvent } from "./events";
 
 export class TodoBookmarks {
-  MAX_WRITE_OPERATIONS_PER_HOUR: number = 1000000;
-  MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number = 1000000;
+  MAX_WRITE_OPERATIONS_PER_HOUR = 1000000;
+  MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE = 1000000;
 
   search(query: string, callback: (results: chrome.bookmarks.BookmarkTreeNode[]) => void): void;
   search(query: string): Promise<chrome.bookmarks.BookmarkTreeNode[]>;

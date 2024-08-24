@@ -1,7 +1,7 @@
 import { TodoEvent } from "./events";
 
 export class TodoWebRequest {
-  MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number = 20;
+  MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES = 20;
 
   handlerBehaviorChanged(callback?: Function): void;
   handlerBehaviorChanged(): never {
