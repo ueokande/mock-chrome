@@ -18,5 +18,8 @@
     "@biomejs/biome": "^1.8.3",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
+  },
+  "peerDependencies": {
+    "@types/chrome": "^0.0.270"
   }
 }
