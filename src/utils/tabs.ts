@@ -6,19 +6,22 @@ export class Counter {
   }
 }
 
+type TabWithId = chrome.tabs.Tab & { id: number };
+type WindowWithId = chrome.windows.Window & { id: number };
+
 export class TabManager {
-  private readonly tabs: Map<number, chrome.tabs.Tab> = new Map();
-  private readonly windows: Map<number, chrome.windows.Window> = new Map();
+  private readonly tabs: Map<number, TabWithId> = new Map();
+  private readonly windows: Map<number, WindowWithId> = new Map();
 
   private readonly tabIdCounter = new Counter();
   private currentWindowId = -1;
 
-  createTab(tab: chrome.tabs.CreateProperties): chrome.tabs.Tab {
+  createTab(tab: chrome.tabs.CreateProperties): TabWithId {
     if (typeof tab.windowId === "undefined" && this.currentWindowId === -1) {
       const win = this.createWindow({
         ...tab,
       });
-      this.currentWindowId = win.id!;
+      this.currentWindowId = win.id;
 
       const newTab = Array.from(this.tabs.values()).find((t) => t.windowId === this.currentWindowId);
       if (!newTab) {
@@ -32,7 +35,7 @@ export class TabManager {
       throw new Error(`No window with id: ${tab.windowId}.`);
     }
 
-    const currentTabs = this.getTabsOfWindow(w.id!);
+    const currentTabs = this.getTabsOfWindow(w.id);
     const tabId = this.tabIdCounter.next();
     const newTab = {
       ...tab,
@@ -40,7 +43,7 @@ export class TabManager {
       url: tab.url ?? "about:blank",
       index: typeof tab.index === "undefined" ? currentTabs.length : tab.index - 0.5, // insert between tabs
       highlighted: false,
-      windowId: w.id!,
+      windowId: w.id,
       incognito: w.incognito,
       discarded: false,
       autoDiscardable: false,
@@ -57,12 +60,12 @@ export class TabManager {
       }
     }
 
-    this.reorderTabIndices(w.id!);
+    this.reorderTabIndices(w.id);
 
     return newTab;
   }
 
-  updateTab(tabId: number, updateProps: chrome.tabs.UpdateProperties): chrome.tabs.Tab {
+  updateTab(tabId: number, updateProps: chrome.tabs.UpdateProperties): TabWithId {
     const tab = this.tabs.get(tabId);
     if (!tab) {
       throw new Error(`No tab with id: ${tabId}.`);
@@ -93,12 +96,12 @@ export class TabManager {
     return tab;
   }
 
-  updateCurrentTab(updateProps: chrome.tabs.UpdateProperties): chrome.tabs.Tab {
+  updateCurrentTab(updateProps: chrome.tabs.UpdateProperties): TabWithId {
     const currentTabId = this.getCurrentTabId();
     return this.updateTab(currentTabId, updateProps);
   }
 
-  moveTab(tabId: number, moveProps: chrome.tabs.MoveProperties): chrome.tabs.Tab {
+  moveTab(tabId: number, moveProps: chrome.tabs.MoveProperties): TabWithId {
     const tab = this.tabs.get(tabId);
     if (!tab) {
       throw new Error(`No tab with id: ${tabId}.`);
@@ -153,15 +156,15 @@ export class TabManager {
     return Array.from(this.windows.keys()).filter((id) => id === windowId);
   }
 
-  getAllTabs(): chrome.tabs.Tab[] {
+  getAllTabs(): TabWithId[] {
     return Array.from(this.tabs.values());
   }
 
-  getAllWindows(): chrome.windows.Window[] {
+  getAllWindows(): WindowWithId[] {
     return Array.from(this.windows.values());
   }
 
-  getTabsOfWindow(windowId: number): chrome.tabs.Tab[] {
+  getTabsOfWindow(windowId: number): TabWithId[] {
     if (!this.windows.has(windowId)) {
       throw new Error(`No window with id: ${windowId}.`);
     }
@@ -203,9 +206,9 @@ export class TabManager {
     }
   }
 
-  createWindow(createData: chrome.windows.CreateData): chrome.windows.Window {
+  createWindow(createData: chrome.windows.CreateData): WindowWithId {
     const windowId = this.tabIdCounter.next();
-    const newWindow: chrome.windows.Window = {
+    const newWindow: WindowWithId = {
       id: windowId,
       top: createData.top,
       left: createData.left,
