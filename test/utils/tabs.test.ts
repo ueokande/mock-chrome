@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 import { TabManager } from "../../src/utils/tabs";
 
 describe("TabManager", () => {
@@ -34,8 +34,6 @@ describe("TabManager", () => {
       const tab1 = sut.createTab({ url: "https://example.com/#1" });
       const tab2 = sut.createTab({ url: "https://example.com/#2" });
       const tab3 = sut.createTab({ url: "https://example.com/#3" });
-
-      const tabs = sut.getAllTabs();
 
       expect(sut.getAllTabs()).toHaveLength(3);
       expect(tab1.url).toBe("https://example.com/#1");
@@ -126,8 +124,8 @@ describe("TabManager", () => {
       sut.createTab({ url: "https://example.com/#2", windowId: win2.id });
       sut.createTab({ url: "https://example.com/#3", windowId: win1.id });
 
-      const tabs1 = sut.getTabsOfWindow(win1.id!);
-      const tabs2 = sut.getTabsOfWindow(win2.id!);
+      const tabs1 = sut.getTabsOfWindow(win1.id);
+      const tabs2 = sut.getTabsOfWindow(win2.id);
       expect(tabs1.map((t) => t.url)).toEqual(["about:blank", "https://example.com/#1", "https://example.com/#3"]);
       expect(tabs2.map((t) => t.url)).toEqual(["about:blank", "https://example.com/#2"]);
     });
@@ -142,7 +140,7 @@ describe("TabManager", () => {
     test("update tab", () => {
       const sut = new TabManager();
       const tab = sut.createTab({ url: "https://example.com" });
-      const updatedTab = sut.updateTab(tab.id!, { url: "https://example.com/#new" });
+      const updatedTab = sut.updateTab(tab.id, { url: "https://example.com/#new" });
 
       expect(updatedTab.url).toBe("https://example.com/#new");
     });
@@ -155,7 +153,7 @@ describe("TabManager", () => {
       expect(tab1.active).toBe(true);
       expect(tab2.active).toBe(false);
 
-      const updatedTab = sut.updateTab(tab2.id!, { active: true });
+      const updatedTab = sut.updateTab(tab2.id, { active: true });
 
       expect(tab1.active).toBe(false);
       expect(updatedTab.active).toBe(true);
@@ -171,7 +169,7 @@ describe("TabManager", () => {
       expect(tab1.index).toBe(0);
       expect(tab2.index).toBe(1);
 
-      sut.updateTab(tab2.id!, { pinned: true });
+      sut.updateTab(tab2.id, { pinned: true });
 
       expect(tab1.pinned).toBe(false);
       expect(tab2.pinned).toBe(true);
@@ -213,7 +211,7 @@ describe("TabManager", () => {
       const tab1 = sut.createTab({ url: "https://example.com#1" });
       const tab2 = sut.createTab({ url: "https://example.com#2" });
 
-      sut.removeTab(tab1.id!);
+      sut.removeTab(tab1.id);
 
       expect(sut.getAllTabs()).toHaveLength(1);
       expect(tab2.index).toBe(0);
@@ -232,7 +230,7 @@ describe("TabManager", () => {
       const tab2 = sut.createTab({ url: "https://example.com#2" });
       const tab3 = sut.createTab({ url: "https://example.com#3" });
 
-      sut.moveTab(tab3.id!, { index: 0 });
+      sut.moveTab(tab3.id, { index: 0 });
 
       expect(tab1.index).toBe(1);
       expect(tab2.index).toBe(2);
@@ -245,7 +243,7 @@ describe("TabManager", () => {
       const tab2 = sut.createTab({ url: "https://example.com#2" });
       const tab3 = sut.createTab({ url: "https://example.com#3" });
 
-      sut.moveTab(tab3.id!, { index: 0, windowId: tab3.windowId });
+      sut.moveTab(tab3.id, { index: 0, windowId: tab3.windowId });
 
       expect(tab1.index).toBe(1);
       expect(tab2.index).toBe(2);
@@ -260,7 +258,7 @@ describe("TabManager", () => {
 
       const win1 = sut.createWindow({});
 
-      sut.moveTab(tab3.id!, { index: 0, windowId: win1.id });
+      sut.moveTab(tab3.id, { index: 0, windowId: win1.id });
 
       expect(tab1.index).toBe(0);
       expect(tab2.index).toBe(1);
@@ -273,7 +271,7 @@ describe("TabManager", () => {
       const sut = new TabManager();
       const tab1 = sut.createTab({ url: "https://example.com#1" });
       const tab2 = sut.createTab({ url: "https://example.com#2" });
-      const tab3 = sut.duplicateTab(tab1.id!);
+      const tab3 = sut.duplicateTab(tab1.id);
 
       expect(tab1.url).toBe(tab3.url);
       expect(tab1.id).not.toBe(tab3.id);
@@ -296,7 +294,7 @@ describe("TabManager", () => {
       expect(win).toHaveProperty("id");
       expect(win.tabs).toHaveLength(1);
 
-      const tabs = sut.getTabsOfWindow(win.id!);
+      const tabs = sut.getTabsOfWindow(win.id);
       expect(tabs).toHaveLength(1);
       expect(tabs[0]).toHaveProperty("id");
       expect(tabs[0]).toHaveProperty("windowId", win.id);
@@ -309,7 +307,7 @@ describe("TabManager", () => {
 
       expect(win.tabs).toHaveLength(1);
 
-      const tabs = sut.getTabsOfWindow(win.id!);
+      const tabs = sut.getTabsOfWindow(win.id);
       expect(tabs).toHaveLength(1);
       expect(tabs[0]).toHaveProperty("id");
       expect(tabs[0]).toHaveProperty("windowId", win.id);
@@ -324,7 +322,7 @@ describe("TabManager", () => {
 
       expect(win.tabs).toHaveLength(3);
 
-      const tabs = sut.getTabsOfWindow(win.id!);
+      const tabs = sut.getTabsOfWindow(win.id);
 
       expect(tabs).toHaveLength(3);
       expect(tabs[0].url).toBe("https://example.com/#1");
@@ -341,8 +339,8 @@ describe("TabManager", () => {
       const tabs = sut.getAllTabs();
       const win2 = sut.createWindow({ tabId: tabs[1].id });
 
-      const tabs1 = sut.getTabsOfWindow(win1.id!);
-      const tabs2 = sut.getTabsOfWindow(win2.id!);
+      const tabs1 = sut.getTabsOfWindow(win1.id);
+      const tabs2 = sut.getTabsOfWindow(win2.id);
 
       expect(tabs1).toHaveLength(2);
       expect(tabs1.map((t) => t.url)).toEqual(["https://example.com/#1", "https://example.com/#3"]);

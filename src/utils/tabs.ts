@@ -6,8 +6,8 @@ export class Counter {
   }
 }
 
-type TabWithId = chrome.tabs.Tab & { id: number };
-type WindowWithId = chrome.windows.Window & { id: number };
+export type TabWithId = chrome.tabs.Tab & { id: number };
+export type WindowWithId = chrome.windows.Window & { id: number };
 
 export class TabManager {
   private readonly tabs: Map<number, TabWithId> = new Map();
