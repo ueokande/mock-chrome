@@ -68,9 +68,11 @@ import { MockWallpaper } from "./api/wallpaper";
 import { MockWebNavigation } from "./api/webNavigation";
 import { MockWebRequest } from "./api/webRequest";
 import { MockWindows } from "./api/windows";
+import { TabManager } from "./utils/tabs";
 
 export const newMockApi = (): typeof chrome => {
-  return {
+  const tabManager = new TabManager();
+  const api: typeof chrome = {
     accessibilityFeatures: new MockAccessibilityFeatures(),
     action: new MockAction(),
     alarms: new MockAlarms(),
@@ -139,7 +141,7 @@ export const newMockApi = (): typeof chrome => {
     },
     tabCapture: new MockTabCapture(),
     tabGroups: new MockTabGroups(),
-    tabs: new MockTabs(),
+    tabs: undefined as never,
     topSites: new MockTopSites(),
     tts: new MockTts(),
     ttsEngine: new MockTtsEngine(),
@@ -175,4 +177,8 @@ export const newMockApi = (): typeof chrome => {
       throw new Error("not implemented");
     },
   };
+
+  api.tabs = new MockTabs(api, tabManager);
+
+  return api;
 };
