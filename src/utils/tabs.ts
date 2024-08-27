@@ -9,28 +9,51 @@ export class Counter {
 export type TabWithId = chrome.tabs.Tab & { id: number };
 export type WindowWithId = chrome.windows.Window & { id: number };
 
+class LastValue<T> {
+  private current: T;
+  private last: T;
+
+  constructor(initialValue: T) {
+    this.current = initialValue;
+    this.last = initialValue;
+  }
+
+  set(value: T) {
+    this.last = this.current;
+    this.current = value;
+  }
+
+  getCurrent() {
+    return this.current;
+  }
+
+  getLast() {
+    return this.last;
+  }
+}
+
 export class TabManager {
   private readonly tabs: Map<number, TabWithId> = new Map();
   private readonly windows: Map<number, WindowWithId> = new Map();
 
   private readonly tabIdCounter = new Counter();
-  private currentWindowId = -1;
+  private focusedWindowId: LastValue<number> = new LastValue(-1);
 
   createTab(tab: chrome.tabs.CreateProperties): TabWithId {
-    if (typeof tab.windowId === "undefined" && this.currentWindowId === -1) {
+    if (typeof tab.windowId === "undefined" && this.focusedWindowId.getCurrent() === -1) {
       const win = this.createWindow({
         ...tab,
       });
-      this.currentWindowId = win.id;
+      this.focusedWindowId.set(win.id);
 
-      const newTab = Array.from(this.tabs.values()).find((t) => t.windowId === this.currentWindowId);
+      const newTab = Array.from(this.tabs.values()).find((t) => t.windowId === this.focusedWindowId.getCurrent());
       if (!newTab) {
         throw new Error("No tab in the current window.");
       }
       return newTab;
     }
 
-    const w = this.windows.get(tab.windowId ?? this.currentWindowId);
+    const w = this.windows.get(tab.windowId ?? this.focusedWindowId.getCurrent());
     if (typeof w === "undefined") {
       throw new Error(`No window with id: ${tab.windowId}.`);
     }
@@ -138,6 +161,19 @@ export class TabManager {
     this.reorderTabIndices(tab.windowId);
   }
 
+  getTab(tabId: number): TabWithId {
+    const tab = this.tabs.get(tabId);
+    if (!tab) {
+      throw new Error(`No tab with id: ${tabId}.`);
+    }
+    return tab;
+  }
+
+  getCurrentTab(): TabWithId {
+    const currentTabId = this.getCurrentTabId();
+    return this.getTab(currentTabId);
+  }
+
   duplicateTab(tabId: number) {
     const tab = this.tabs.get(tabId);
     if (!tab) {
@@ -175,18 +211,17 @@ export class TabManager {
   }
 
   private getCurrentTabId(): number {
-    if (this.currentWindowId === -1) {
+    if (this.focusedWindowId.getCurrent() === -1) {
       throw new Error("No active window.");
     }
-    const currentWindow = this.windows.get(this.currentWindowId);
+    const currentWindow = this.windows.get(this.focusedWindowId.getCurrent());
     if (!currentWindow) {
-      throw new Error(`No window with id: ${this.currentWindowId}.`);
+      throw new Error(`No window with id: ${this.focusedWindowId.getCurrent()}.`);
     }
 
-    for (const tabId of this.tabs.keys()) {
-      const tab = this.tabs.get(tabId);
-      if (tab?.active && tab.windowId === this.currentWindowId) {
-        return tabId;
+    for (const tab of this.getTabsOfWindow(currentWindow.id)) {
+      if (tab.active && tab.windowId === this.focusedWindowId.getCurrent()) {
+        return tab.id;
       }
     }
 
@@ -220,6 +255,19 @@ export class TabManager {
       state: createData.state ?? "normal",
       alwaysOnTop: false,
     };
+
+    if (createData.focused) {
+      // if the window is focused, unfocus other windows
+      for (const w of this.windows.values()) {
+        w.focused = false;
+      }
+      this.focusedWindowId.set(windowId);
+    } else if (this.windows.size === 0) {
+      // if this is the first window, focus it
+      newWindow.focused = true;
+      this.focusedWindowId.set(windowId);
+    }
+
     this.windows.set(windowId, newWindow);
 
     if (typeof createData.tabId !== "undefined") {
@@ -258,5 +306,29 @@ export class TabManager {
 
     this.reorderTabIndices(windowId);
     return newWindow;
+  }
+
+  getWindow(windowId: number): WindowWithId {
+    const window = this.windows.get(windowId);
+    if (!window) {
+      throw new Error(`No window with id: ${windowId}.`);
+    }
+    return window;
+  }
+
+  getCurrentWindow(): WindowWithId {
+    const w = this.windows.get(this.focusedWindowId.getCurrent());
+    if (typeof w === "undefined") {
+      throw new Error("No focused window.");
+    }
+    return w;
+  }
+
+  getLastFocusedWindow(): WindowWithId {
+    const w = this.windows.get(this.focusedWindowId.getLast());
+    if (typeof w === "undefined") {
+      throw new Error("No last-focused window.");
+    }
+    return w;
   }
 }

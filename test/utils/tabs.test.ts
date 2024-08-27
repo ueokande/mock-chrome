@@ -223,6 +223,42 @@ describe("TabManager", () => {
     });
   });
 
+  describe("getTab", () => {
+    test("get tab", () => {
+      const sut = new TabManager();
+      const tab = sut.createTab({ url: "https://example.com" });
+
+      const result = sut.getTab(tab.id);
+
+      expect(result).toBe(tab);
+    });
+
+    test("get tab with invalid id", () => {
+      const sut = new TabManager();
+      expect(() => sut.getTab(-10)).toThrowError("No tab with id: -10");
+    });
+  });
+
+  describe("getCurrentTab", () => {
+    test("get current tab", () => {
+      const sut = new TabManager();
+      const tab1 = sut.createTab({ url: "https://example.com#1" });
+      const tab2 = sut.createTab({ url: "https://example.com#2" });
+      expect(sut.getCurrentTab()).toBe(tab1);
+
+      const tab3 = sut.createTab({ url: "https://example.com#3", active: true });
+      expect(sut.getCurrentTab()).toBe(tab3);
+
+      sut.updateTab(tab2.id, { active: true });
+      expect(sut.getCurrentTab()).toBe(tab2);
+    });
+
+    test("get current tab with no active tab", () => {
+      const sut = new TabManager();
+      expect(() => sut.getCurrentTab()).toThrowError("No active window.");
+    });
+  });
+
   describe("moveTab", () => {
     test("move tab within the same window", () => {
       const sut = new TabManager();
@@ -346,6 +382,58 @@ describe("TabManager", () => {
       expect(tabs1.map((t) => t.url)).toEqual(["https://example.com/#1", "https://example.com/#3"]);
       expect(tabs2).toHaveLength(1);
       expect(tabs2[0].url).toBe("https://example.com/#2");
+    });
+  });
+
+  describe("getWindow", () => {
+    test("get window", () => {
+      const sut = new TabManager();
+      const win = sut.createWindow({});
+
+      const result = sut.getWindow(win.id);
+
+      expect(result).toBe(win);
+    });
+
+    test("get window with invalid id", () => {
+      const sut = new TabManager();
+      expect(() => sut.getWindow(-10)).toThrowError("No window with id: -10");
+    });
+  });
+
+  describe("getCurrentWindow", () => {
+    test("get current window", () => {
+      const sut = new TabManager();
+      const win1 = sut.createWindow({});
+      const win2 = sut.createWindow({});
+      expect(sut.getCurrentWindow()).toBe(win1);
+
+      const win3 = sut.createWindow({ focused: true });
+      expect(sut.getCurrentWindow()).toBe(win3);
+    });
+
+    test("get current window with no focused window", () => {
+      const sut = new TabManager();
+      expect(() => sut.getCurrentWindow()).toThrowError("No focused window.");
+    });
+  });
+
+  describe("getLastFocusedWindow", () => {
+    test("get last focused window", () => {
+      const sut = new TabManager();
+
+      expect(() => sut.getLastFocusedWindow()).toThrowError("No last-focused window.");
+
+      const win1 = sut.createWindow({});
+      expect(() => sut.getLastFocusedWindow()).toThrowError("No last-focused window.");
+
+      sut.createWindow({ focused: true });
+      expect(sut.getLastFocusedWindow()).toBe(win1);
+    });
+
+    test("get last focused window with no focused window", () => {
+      const sut = new TabManager();
+      expect(() => sut.getLastFocusedWindow()).toThrowError("No last-focused window.");
     });
   });
 });
