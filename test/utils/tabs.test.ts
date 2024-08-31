@@ -423,4 +423,61 @@ describe("TabManager", () => {
       expect(() => sut.getLastFocusedWindow()).toThrowError("No last-focused window.");
     });
   });
+
+  describe("updateWindow", () => {
+    test("update window", () => {
+      const sut = new TabManager();
+      const win = sut.createWindow({});
+
+      const updatedWin = sut.updateWindow(win.id, { state: "minimized" });
+
+      expect(updatedWin.state).toBe("minimized");
+    });
+
+    test("update window with focused", () => {
+      const sut = new TabManager();
+      const win1 = sut.createWindow({});
+      const win2 = sut.createWindow({ focused: true });
+      expect(sut.getCurrentWindow()).toBe(win2);
+
+      sut.updateWindow(win1.id, { focused: true });
+      expect(sut.getCurrentWindow()).toBe(win1);
+    });
+
+    test("update window with invalid id", () => {
+      const sut = new TabManager();
+      expect(() => sut.updateWindow(-10, { focused: true })).toThrowError("No window with id: -10");
+    });
+  });
+
+  describe("removeWindow", () => {
+    test("remove window", () => {
+      const sut = new TabManager();
+      const win1 = sut.createWindow({});
+      const win2 = sut.createWindow({});
+
+      sut.removeWindow(win1.id);
+
+      expect(sut.getAllWindows()).toHaveLength(1);
+      expect(sut.getAllWindows()[0]).toBe(win2);
+      expect(sut.getAllTabs()).toHaveLength(1);
+    });
+
+    test("remove focused window", () => {
+      const sut = new TabManager();
+      const win1 = sut.createWindow({});
+      const win2 = sut.createWindow({ focused: true });
+
+      expect(sut.getCurrentWindow()).toBe(win2);
+
+      sut.removeWindow(win2.id);
+
+      expect(sut.getCurrentWindow()).toBe(win1);
+    });
+
+    test("remove window with invalid id", () => {
+      const sut = new TabManager();
+      expect(() => sut.removeWindow(-10)).toThrowError("No window with id: -10");
+    });
+  });
 });

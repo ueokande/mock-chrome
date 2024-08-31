@@ -279,4 +279,48 @@ export class TabManager {
     }
     return w;
   }
+
+  updateWindow(windowId: number, updateInfo: chrome.windows.UpdateInfo): WindowWithId {
+    const w = this.windows.get(windowId);
+    if (!w) {
+      throw new Error(`No window with id: ${windowId}.`);
+    }
+
+    if (updateInfo.focused) {
+      for (const w of this.windows.values()) {
+        w.focused = false;
+      }
+      this.lastFocusedWindowId = windowId;
+    }
+
+    w.top = updateInfo.top ?? w.top;
+    w.left = updateInfo.left ?? w.left;
+    w.height = updateInfo.height ?? w.height;
+    w.width = updateInfo.width ?? w.width;
+    w.focused = updateInfo.focused ?? w.focused;
+    w.state = updateInfo.state ?? w.state;
+
+    return w;
+  }
+
+  removeWindow(windowId: number) {
+    const deleted = this.windows.delete(windowId);
+    if (!deleted) {
+      throw new Error(`No window with id: ${windowId}.`);
+    }
+
+    const windows = Array.from(this.windows.values());
+    if (windows.length === 0) {
+      this.lastFocusedWindowId = -1;
+    } else if (this.lastFocusedWindowId === windowId) {
+      windows[0].focused = true;
+      this.lastFocusedWindowId = windows[0].id;
+    }
+
+    for (const tab of this.tabs.values()) {
+      if (tab.windowId === windowId) {
+        this.tabs.delete(tab.id);
+      }
+    }
+  }
 }
