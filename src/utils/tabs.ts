@@ -103,22 +103,21 @@ export class TabManager {
     }
 
     if (typeof moveProps.windowId !== "undefined" && moveProps.windowId !== tab.windowId) {
-      // if the tab is moved to another window
-
       const prevWindowId = tab.windowId;
       tab.windowId = moveProps.windowId;
-      tab.index = moveProps.index;
 
       // reorder tabs in the source window
       this.reorderTabIndices(prevWindowId);
-
-      // reorder tabs in the destination window
-      this.reorderTabIndices(moveProps.windowId);
-    } else {
-      // if the tab is moved within the same window
-      tab.index = moveProps.index - 0.5; // insert between tabs
-      this.reorderTabIndices(tab.windowId);
     }
+
+    if (tab.index < moveProps.index) {
+      tab.index = moveProps.index + 0.5;
+    } else if (tab.index > moveProps.index) {
+      tab.index = moveProps.index - 0.5;
+    }
+
+    // reorder tabs in the current window or the destination window
+    this.reorderTabIndices(tab.windowId);
 
     return tab;
   }

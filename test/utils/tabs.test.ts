@@ -218,17 +218,45 @@ describe("TabManager", () => {
   });
 
   describe("moveTab", () => {
-    test("move tab within the same window", () => {
+    test("move forward tab within the same window", () => {
       const sut = new TabManager();
       const tab1 = sut.createTab({ url: "https://example.com#1" });
       const tab2 = sut.createTab({ url: "https://example.com#2" });
       const tab3 = sut.createTab({ url: "https://example.com#3" });
 
-      sut.moveTab(tab3.id, { index: 0 });
+      const moved = sut.moveTab(tab1.id, { index: 1 });
 
+      expect(moved).toBe(tab1);
       expect(tab1.index).toBe(1);
+      expect(tab2.index).toBe(0);
+      expect(tab3.index).toBe(2);
+    });
+
+    test("move backward tab within the same window", () => {
+      const sut = new TabManager();
+      const tab1 = sut.createTab({ url: "https://example.com#1" });
+      const tab2 = sut.createTab({ url: "https://example.com#2" });
+      const tab3 = sut.createTab({ url: "https://example.com#3" });
+
+      const moved = sut.moveTab(tab3.id, { index: 1 });
+
+      expect(moved).toBe(tab3);
+      expect(tab1.index).toBe(0);
       expect(tab2.index).toBe(2);
-      expect(tab3.index).toBe(0);
+      expect(tab3.index).toBe(1);
+    });
+
+    test("move tab to the same position", () => {
+      const sut = new TabManager();
+      const tab1 = sut.createTab({ url: "https://example.com#1" });
+      const tab2 = sut.createTab({ url: "https://example.com#2" });
+      const tab3 = sut.createTab({ url: "https://example.com#3" });
+
+      sut.moveTab(tab2.id, { index: 1 });
+
+      expect(tab1.index).toBe(0);
+      expect(tab2.index).toBe(1);
+      expect(tab3.index).toBe(2);
     });
 
     test("move tab within the same window with window spec", () => {
