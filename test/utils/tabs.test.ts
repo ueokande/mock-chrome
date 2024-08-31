@@ -183,28 +183,6 @@ describe("TabManager", () => {
     });
   });
 
-  describe("updateCurrentTab", () => {
-    test("update current tab", () => {
-      const sut = new TabManager();
-      const tab1 = sut.createTab({ url: "https://example.com#1" });
-      const tab2 = sut.createTab({ url: "https://example.com#2" });
-
-      expect(tab1.active).toBe(true);
-      expect(tab2.active).toBe(false);
-
-      const updatedTab = sut.updateCurrentTab({ url: "https://example.com/#new" });
-
-      expect(tab1.url).toBe("https://example.com/#new");
-      expect(tab2.url).toBe("https://example.com#2");
-      expect(updatedTab).toBe(tab1);
-    });
-
-    test("fail to update current tab with no active tab", () => {
-      const sut = new TabManager();
-      expect(() => sut.updateCurrentTab({ url: "https://example.com" })).toThrowError("No active window.");
-    });
-  });
-
   describe("removeTab", () => {
     test("remove tab", () => {
       const sut = new TabManager();
@@ -236,26 +214,6 @@ describe("TabManager", () => {
     test("get tab with invalid id", () => {
       const sut = new TabManager();
       expect(() => sut.getTab(-10)).toThrowError("No tab with id: -10");
-    });
-  });
-
-  describe("getCurrentTab", () => {
-    test("get current tab", () => {
-      const sut = new TabManager();
-      const tab1 = sut.createTab({ url: "https://example.com#1" });
-      const tab2 = sut.createTab({ url: "https://example.com#2" });
-      expect(sut.getCurrentTab()).toBe(tab1);
-
-      const tab3 = sut.createTab({ url: "https://example.com#3", active: true });
-      expect(sut.getCurrentTab()).toBe(tab3);
-
-      sut.updateTab(tab2.id, { active: true });
-      expect(sut.getCurrentTab()).toBe(tab2);
-    });
-
-    test("get current tab with no active tab", () => {
-      const sut = new TabManager();
-      expect(() => sut.getCurrentTab()).toThrowError("No active window.");
     });
   });
 
@@ -404,9 +362,10 @@ describe("TabManager", () => {
   describe("getCurrentWindow", () => {
     test("get current window", () => {
       const sut = new TabManager();
-      const win1 = sut.createWindow({});
+
+      sut.createWindow({});
       const win2 = sut.createWindow({});
-      expect(sut.getCurrentWindow()).toBe(win1);
+      expect(sut.getCurrentWindow()).toBe(win2);
 
       const win3 = sut.createWindow({ focused: true });
       expect(sut.getCurrentWindow()).toBe(win3);
@@ -414,7 +373,7 @@ describe("TabManager", () => {
 
     test("get current window with no focused window", () => {
       const sut = new TabManager();
-      expect(() => sut.getCurrentWindow()).toThrowError("No focused window.");
+      expect(() => sut.getCurrentWindow()).toThrowError("No current window.");
     });
   });
 
@@ -424,11 +383,11 @@ describe("TabManager", () => {
 
       expect(() => sut.getLastFocusedWindow()).toThrowError("No last-focused window.");
 
-      const win1 = sut.createWindow({});
-      expect(() => sut.getLastFocusedWindow()).toThrowError("No last-focused window.");
-
-      sut.createWindow({ focused: true });
+      const win1 = sut.createWindow({ focused: false });
       expect(sut.getLastFocusedWindow()).toBe(win1);
+
+      const win2 = sut.createWindow({ focused: true });
+      expect(sut.getLastFocusedWindow()).toBe(win2);
     });
 
     test("get last focused window with no focused window", () => {

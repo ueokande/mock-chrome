@@ -231,12 +231,18 @@ export class TodoTabs implements Interface {
   TAB_ID_NONE: typeof chrome.tabs.TAB_ID_NONE = -1;
 }
 
+const WINDOW_ID_NONE = -1;
+
 export class MockTabs implements Interface {
   private readonly zoomSettings: Map<number, chrome.tabs.ZoomSettings> = new Map();
   private readonly zoomFactors: Map<number, number> = new Map();
   constructor(
     private readonly chrome: typeof window.chrome,
     private readonly tabManager: TabManager,
+    private readonly context: {
+      windowId: number;
+      tabId: number;
+    },
   ) {}
 
   executeScript(details: chrome.tabs.InjectDetails): Promise<any[]>;
@@ -299,9 +305,15 @@ export class MockTabs implements Interface {
 
   getCurrent(callback: (tab?: chrome.tabs.Tab) => void): void;
   getCurrent(): Promise<chrome.tabs.Tab | undefined>;
-  getCurrent(): Promise<chrome.tabs.Tab | undefined> | undefined {
-    // TODO return current tab from a tab context
-    return undefined;
+  getCurrent(...args: unknown[]): Promise<chrome.tabs.Tab | undefined> | undefined {
+    if (!isOptionalCallback(args[0])) {
+      throw new Error("Error at parameter 'callback': Value must be a function.");
+    }
+
+    return asyncify(this.chrome, [], args[0], () => {
+      const tabId = this.context.tabId;
+      return this.tabManager.getTab(tabId);
+    });
   }
 
   getSelected(callback: (tab: chrome.tabs.Tab) => void): void;
@@ -391,7 +403,9 @@ export class MockTabs implements Interface {
       }
 
       return asyncify(this.chrome, [args[0]], args[1], (updateProperties: chrome.tabs.UpdateProperties) => {
-        return this.tabManager.updateCurrentTab(updateProperties);
+        const tabId = this.getCurrentOrActiveTabId();
+
+        return this.tabManager.updateTab(tabId, updateProperties);
       });
     }
   }
@@ -651,9 +665,7 @@ export class MockTabs implements Interface {
             return true;
           }
 
-          const win = this.tabManager.getCurrentWindow();
-
-          return win.id === t.windowId;
+          return this.context.windowId === t.windowId;
         });
     });
   }
@@ -720,9 +732,9 @@ export class MockTabs implements Interface {
       throw new Error("Error at parameter 'tabId': Value must be at least 0.");
     }
     return asyncify(this.chrome, [args[0]], args[1], (zoomFactor: number) => {
-      const tab = this.tabManager.getCurrentTab();
+      const tabId = this.getCurrentOrActiveTabId();
 
-      this.zoomFactors.set(tab.id, zoomFactor);
+      this.zoomFactors.set(tabId, zoomFactor);
     });
   }
 
@@ -742,7 +754,7 @@ export class MockTabs implements Interface {
       }
 
       return asyncify(this.chrome, [args[0]], args[1], (tabId: number) => {
-        this.zoomFactors.get(tabId);
+        this.tabManager.getTab(tabId);
 
         const zoomFactor = this.zoomFactors.get(tabId);
 
@@ -756,8 +768,8 @@ export class MockTabs implements Interface {
       throw new Error("Error at parameter 'callback': Value must be a function.");
     }
     return asyncify(this.chrome, [], args[0], () => {
-      const tab = this.tabManager.getCurrentTab();
-      const zoomFactor = this.zoomFactors.get(tab.id);
+      const tabId = this.getCurrentOrActiveTabId();
+      const zoomFactor = this.zoomFactors.get(tabId);
 
       return typeof zoomFactor === "number" ? zoomFactor : 1.0;
     });
@@ -797,9 +809,9 @@ export class MockTabs implements Interface {
       throw new Error("Error at parameter 'callback': Value must be a function.");
     }
     return asyncify(this.chrome, [args[0]], args[1], (zoomSettings: chrome.tabs.ZoomSettings) => {
-      const tab = this.tabManager.getCurrentTab();
+      const tabId = this.getCurrentOrActiveTabId();
 
-      this.zoomSettings.set(tab.id, zoomSettings);
+      this.zoomSettings.set(tabId, zoomSettings);
     });
   }
 
@@ -839,9 +851,9 @@ export class MockTabs implements Interface {
       throw new Error("Error at parameter 'callback': Value must be a function.");
     }
     return asyncify(this.chrome, [], args[0], () => {
-      const tab = this.tabManager.getCurrentTab();
+      const tabId = this.getCurrentOrActiveTabId();
 
-      const zoomSettings = this.zoomSettings.get(tab.id);
+      const zoomSettings = this.zoomSettings.get(tabId);
       if (typeof zoomSettings === "undefined") {
         return {
           mode: "automatic",
@@ -887,6 +899,20 @@ export class MockTabs implements Interface {
   ungroup(tabIds: number | number[], callback: () => void): void;
   ungroup(): never {
     throw new Error("not implemented");
+  }
+
+  private getCurrentOrActiveTabId(): number {
+    if (this.context.windowId !== WINDOW_ID_NONE) {
+      return this.context.tabId;
+    }
+
+    const w = this.tabManager.getLastFocusedWindow();
+    const tab = this.tabManager.getTabsOfWindow(w.id).find((t) => t.active);
+    if (typeof tab === "undefined") {
+      throw new Error("No active tab.");
+    }
+
+    return tab.id;
   }
 
   onHighlighted: chrome.tabs.TabHighlightedEvent = new TodoEvent();
