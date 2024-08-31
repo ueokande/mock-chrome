@@ -1,4 +1,10 @@
-export function asyncify<Args extends unknown[], R>(chrome: typeof window.chrome, args: Args, callback: ((result: R) => void) | undefined, fn: (...args: Args) => R | Promise<R>): Promise<R> | undefined {
+export type ErrorCapture = {
+  runtime: {
+    lastError: typeof chrome.runtime.lastError;
+  };
+};
+
+export function asyncify<Args extends unknown[], R>(chrome: ErrorCapture, args: Args, callback: ((result: R) => void) | undefined, fn: (...args: Args) => R | Promise<R>): Promise<R> | undefined {
   if (typeof callback === "undefined") {
     try {
       const result = fn(...args);

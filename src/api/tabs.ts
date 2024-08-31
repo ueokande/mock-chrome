@@ -1,4 +1,4 @@
-import { asyncify } from "../utils/promises";
+import { type ErrorCapture, asyncify } from "../utils/promises";
 import type { TabManager } from "../utils/tabs";
 import { isNonEmptyObject, isOptionalCallback, isPositiveInteger } from "../utils/validators";
 import { TodoEvent } from "./events";
@@ -237,11 +237,11 @@ export class MockTabs implements Interface {
   private readonly zoomSettings: Map<number, chrome.tabs.ZoomSettings> = new Map();
   private readonly zoomFactors: Map<number, number> = new Map();
   constructor(
-    private readonly chrome: typeof window.chrome,
+    private readonly chrome: ErrorCapture,
     private readonly tabManager: TabManager,
     private readonly context: {
       windowId: number;
-      tabId: number;
+      tabId?: number;
     },
   ) {}
 
@@ -311,8 +311,14 @@ export class MockTabs implements Interface {
     }
 
     return asyncify(this.chrome, [], args[0], () => {
-      const tabId = this.context.tabId;
-      return this.tabManager.getTab(tabId);
+      if (this.context.windowId === WINDOW_ID_NONE) {
+        return undefined;
+      }
+
+      if (typeof this.context.tabId === "undefined") {
+        throw new Error("Error: No tabId of the current tab is set.");
+      }
+      return this.tabManager.getTab(this.context.tabId);
     });
   }
 
@@ -903,6 +909,9 @@ export class MockTabs implements Interface {
 
   private getCurrentOrActiveTabId(): number {
     if (this.context.windowId !== WINDOW_ID_NONE) {
+      if (typeof this.context.tabId === "undefined") {
+        throw new Error("Error: No tabId of the context provided.");
+      }
       return this.context.tabId;
     }
 

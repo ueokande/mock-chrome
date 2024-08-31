@@ -1,10 +1,13 @@
 import { describe, expect, test, vi } from "vitest";
-import { newTodoApi } from "../../src/todoFactory";
-import { asyncify } from "../../src/utils/promises";
+import { type ErrorCapture, asyncify } from "../../src/utils/promises";
+
+const chrome: ErrorCapture = {
+  runtime: {
+    lastError: undefined,
+  },
+};
 
 describe("asyncify", () => {
-  const chrome = newTodoApi();
-
   describe("return as Promise", () => {
     test.each([() => "result", () => Promise.resolve("result")])("should return a value as Promise", async (fn) => {
       const ret = asyncify(chrome, [], undefined, fn);
