@@ -72,7 +72,7 @@ import { TabManager } from "./utils/tabs";
 
 export const newMockApi = (): typeof chrome => {
   const tabManager = new TabManager();
-  const api: typeof chrome = {
+  const api = {
     accessibilityFeatures: new MockAccessibilityFeatures(),
     action: new MockAction(),
     alarms: new MockAlarms(),
@@ -152,31 +152,16 @@ export const newMockApi = (): typeof chrome => {
     webRequest: new MockWebRequest(),
     windows: undefined as never,
 
-    get browser(): never {
-      throw new Error("not implemented");
-    },
-    get browserAction(): never {
-      throw new Error("not implemented");
-    },
-    get cast(): never {
-      throw new Error("not implemented");
-    },
-    get networking(): never {
-      throw new Error("not implemented");
-    },
-    get scriptBadge(): never {
-      throw new Error("not implemented");
-    },
-    get serial(): never {
-      throw new Error("not implemented");
-    },
-    get socket(): never {
-      throw new Error("not implemented");
-    },
-    get webstore(): never {
-      throw new Error("not implemented");
-    },
-  };
+    // The following are not available in Chrome API, but are in the type definition:
+    // - browser
+    // - browserAction
+    // - cast
+    // - networking
+    // - scriptBadge
+    // - serial
+    // - socket
+    // - webstore
+  } as unknown as typeof chrome;
 
   // TODO set a caller context
   api.tabs = new MockTabs(api, tabManager, { windowId: -1 });

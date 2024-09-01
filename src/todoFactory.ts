@@ -150,29 +150,14 @@ export const newTodoApi = (): typeof chrome => {
     webRequest: new TodoWebRequest(),
     windows: new TodoWindows(),
 
-    get browser(): never {
-      throw new Error("not implemented");
-    },
-    get browserAction(): never {
-      throw new Error("not implemented");
-    },
-    get cast(): never {
-      throw new Error("not implemented");
-    },
-    get networking(): never {
-      throw new Error("not implemented");
-    },
-    get scriptBadge(): never {
-      throw new Error("not implemented");
-    },
-    get serial(): never {
-      throw new Error("not implemented");
-    },
-    get socket(): never {
-      throw new Error("not implemented");
-    },
-    get webstore(): never {
-      throw new Error("not implemented");
-    },
-  };
+    // The following are not available in Chrome API, but are in the type definition:
+    // - browser
+    // - browserAction
+    // - cast
+    // - networking
+    // - scriptBadge
+    // - serial
+    // - socket
+    // - webstore
+  } as unknown as typeof chrome;
 };
