@@ -15,7 +15,6 @@
   "keywords": [],
   "author": "Shin'ya Ueoka",
   "license": "MIT",
-  "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "typescript": "^5.5.4",
