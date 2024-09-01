@@ -2,7 +2,6 @@
   "name": "mock-chrome",
   "version": "0.0.1",
   "description": "Another mock library for Chrome Extensions API",
-  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "build:watch": "ncc build --watch src/index.ts",
@@ -21,5 +20,10 @@
   },
   "peerDependencies": {
     "@types/chrome": "^0.0.270"
-  }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ]
 }

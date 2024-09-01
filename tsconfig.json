@@ -4,9 +4,11 @@
     "module": "esnext",
     "outDir": "./dist",
     "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true
   },
-  "exclude": ["./node_modules", "./test"]
+  "exclude": ["./node_modules", "./test", "./dist"]
 }
