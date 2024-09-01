@@ -1,6 +1,6 @@
 {
   "name": "mock-chrome",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Another mock library for Chrome Extensions API",
   "scripts": {
     "build": "tsc",
