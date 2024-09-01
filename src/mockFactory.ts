@@ -150,7 +150,7 @@ export const newMockApi = (): typeof chrome => {
     wallpaper: new MockWallpaper(),
     webNavigation: new MockWebNavigation(),
     webRequest: new MockWebRequest(),
-    windows: new MockWindows(),
+    windows: undefined as never,
 
     get browser(): never {
       throw new Error("not implemented");
@@ -178,7 +178,9 @@ export const newMockApi = (): typeof chrome => {
     },
   };
 
-  api.tabs = new MockTabs(api, tabManager);
+  // TODO set a caller context
+  api.tabs = new MockTabs(api, tabManager, { windowId: -1 });
+  api.windows = new MockWindows(api, tabManager);
 
   return api;
 };
