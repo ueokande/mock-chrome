@@ -9,6 +9,9 @@
     "lint:fix": "biome check --write",
     "test": "vitest"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "keywords": [],
   "author": "Shin'ya Ueoka",
   "license": "MIT",
